@@ -1,0 +1,38 @@
+[
+	{	
+		"id": "hz001",
+		"gene": "CHCHD10",
+		"disease": [
+			"Frontotemporal dementia and/or amyotrophic lateral sclerosis 2",
+			"Myopathy isolated mitochondrial autosomal dominant",
+			"Spinal muscular atrophy jokela type",
+			"Amyotrophic lateral sclerosis",
+			"Autosomal dominant mitochondrial myopathy with exercise intolerance",
+			"Frontotemporal dementia with motor neuron disease",
+			"Lower motor neuron syndrome with late-adult onset",
+			"Frontotemporal dementia and/or amyotrophic lateral sclerosis 2",
+			"Myopathy isolated mitochondrial autosomal dominant",
+			"Spinal muscular atrophy jokela type"
+			]
+		},
+		"danio": [
+			{
+				"gene": "chchd10",
+				"phenotype": [
+					"axon part_of motor neuron decreased length",
+					"skeletal muscle myofibril part_of skeletal muscle disorganized",
+					"skeletal muscle refractivity",
+					"thigmotaxis disrupted"
+			]
+			}
+		]
+		"mus": [
+		
+		]
+	}
+
+
+
+
+
+]
