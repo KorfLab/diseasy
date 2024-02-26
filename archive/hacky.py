@@ -27,8 +27,8 @@ with open('zf2hs.tsv') as fp:
 		zf, hs = line.rstrip().split('\t')
 		if hs not in hsp: continue
 		if zf not in zfp: continue
-		if hs not in gene: gene[hs] = []
-		gene[hs].append(zf)
+		if hs not in gene: gene[hs] = {}
+		gene[hs][zf] = True
 
 
 
