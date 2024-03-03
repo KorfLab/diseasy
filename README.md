@@ -35,3 +35,28 @@ A: Gold standards are found
 Compare human diseases vs. human diseases
 Compare zf phenotypes vs zf phenotypes
 
+
+---
+
+textcompare1.py
+
+install conda
+pip3 install nltk scikit-learn transformers torch fasttext
+
+curl https://dl.fbaipublicfiles.com/fasttext/vectors-crawl/cc.en.300.bin.gz --output cc.en.300.bin
+
+---
+
+textcompare2.py
+
+pip3 install -U sentence-transformers
+
+works
+
+----
+
+textcompare3.py
+
+pip3 install tensorflow tensorflow_hub
+
+works
