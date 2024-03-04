@@ -70,18 +70,22 @@ def tsim4(text1, text2):
 
 ## Main ##
 
+cmp = {
+	'sklearntext': tsim2,
+	'transformer': tsim3,
+	'tensorflow':  tsim4,
+}
 
 with open('diseasy.json') as fp:
 	d = json.load(fp)
 
 for i in range(len(d)):
+	gene1 = d[i]['gene']
 	dtext1 = ' '.join(d[i]['diseases'])
 	for j in range(i, len(d)):
+		gene2 = d[j]['gene']
 		dtext2 = ' '.join(d[j]['diseases'])
-		for sim in (tsim2, tsim3, tsim4):
-			print('\ncomparing...')
-			print(1, dtext1)
-			print(2, dtext2)
-			print(i, j, sim(dtext1, dtext2))
+		for method, func in cmp.items():
+			print(gene1, gene2, method, func(dtext1, dtext2))
 	break
 
