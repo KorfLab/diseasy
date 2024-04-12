@@ -1,4 +1,5 @@
 import json
+import sys
 
 # tsim1, tsim2
 # https://spotintelligence.com/2022/12/19/text-similarity-python
@@ -76,16 +77,19 @@ cmp = {
 	'tensorflow':  tsim4,
 }
 
+target = int(sys.argv[1])
+
 with open('diseasy.json') as fp:
 	d = json.load(fp)
 
 for i in range(len(d)):
+	if i+1 != target: continue
 	gene1 = d[i]['gene']
 	dtext1 = ' '.join(d[i]['diseases'])
-	for j in range(i, len(d)):
+	for j in range(len(d)):
 		gene2 = d[j]['gene']
 		dtext2 = ' '.join(d[j]['diseases'])
 		for method, func in cmp.items():
 			print(gene1, gene2, method, func(dtext1, dtext2))
-	break
+
 
