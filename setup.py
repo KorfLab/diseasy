@@ -30,6 +30,7 @@ for i, entry in enumerate(d):
 	htext[hg] = entry['diseases']
 	for zd in entry['d.rerio']:
 		zfg = zd['gene']
+		if ':' in zfg: zfg.replace(':', '_') # `make` doesn't like colons
 		ztext[zfg] = zd['phenotypes']
 	if arg.limit and i+1 == arg.limit:
 		print('reached limit:', arg.limit, file=sys.stderr)
