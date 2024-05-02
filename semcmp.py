@@ -2,8 +2,9 @@ import argparse
 import math
 import sys
 
-from sklearn.feature_extraction.text import TfidfVectorizer
-from sklearn.metrics.pairwise import cosine_similarity
+from sentence_transformers import SentenceTransformer
+from scipy.spatial import distance
+
 
 def read_file(filename, method):
 	data = {}
@@ -23,13 +24,11 @@ def read_file(filename, method):
 	
 	return ' '.join(data.keys())
 
-def compare_text(text1, text2):
-	vectorizer = TfidfVectorizer()
-	vectors = vectorizer.fit_transform([text1, text2])
-	similarity = cosine_similarity(vectors)
-	distance = 1 - similarity[0][1]
-	if math.isclose(distance, 0, abs_tol=1e-6): return 0
-	return distance
+def compare_meaning(text1, text2):
+	model = SentenceTransformer('distilbert-base-nli-mean-tokens')
+	e1 = model.encode(text1)
+	e2 = model.encode(text2)
+	return distance.cosine(e1, e2)
 
 ## Command Line Interface ##
 parser = argparse.ArgumentParser('text comparison program')
@@ -40,6 +39,6 @@ arg = parser.parse_args()
 
 a = read_file(arg.file1, arg.data)
 b = read_file(arg.file2, arg.data)
-d = compare_text(a, b)
+d = compare_meaning(a, b)
 print(d)
 
