@@ -68,7 +68,7 @@ for basename, (text, d) in base.items():
 				if cmp == 'txt': p = 'python3 txtcmp.py'
 				else:            p = 'python3 semcmp.py'
 				out = f'build/{basename}/{target}'
-				cli = f'{p} {f} {d} {opt} > {out}'
+				cli = f'{p} {f} build/{d} {opt} > {out}'
 				targets[out] = cli
 
 # create makefile
