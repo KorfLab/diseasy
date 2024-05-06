@@ -49,29 +49,27 @@ for gene, text in ztext.items():
 	with open(f'{zfish}/{gene}', 'w') as fp:
 		fp.write('\n'.join(text))
 
+
 # organize jobs
 base = {
-	'h2h' : (htext, htext),
-	'z2z' : (ztext, ztext),
-	'h2z' : (htext, ztext),
+	'h2h' : (htext, 'human'),
+	'z2z' : (ztext, 'zfish'),
+	'h2z' : (htext, 'zfish'),
 }
 
 targets = {}
-for basename, (t1, t2) in base.items():
-	for n1 in t1:
-		for n2 in t2:
-			for cmp in ('txt', 'sem'):
-				for opt in ('words', 'lines'):
-					target = f'{n1}-{n2}-{cmp}-{opt}'
-					if n1 in htext: f1 = f'build/human/{n1}'
-					else:           f1 = f'build/zfish/{n1}'
-					if n2 in htext: f2 = f'build/human/{n2}'
-					else:           f2 = f'build/zfish/{n2}'
-					if cmp == 'txt': p = 'python3 txtcmp.py'
-					else:            p = 'python3 semcmp.py'
-					out = f'build/{basename}/{target}'
-					cli = f'{p} {f1} {f2} {opt} > {out}'
-					targets[out] = cli
+for basename, (text, d) in base.items():
+	for name in text:
+		for cmp in ('txt', 'sem'):
+			for opt in ('words', 'lines'):
+				target = f'{name}-{d}-{cmp}-{opt}'
+				if name in text: f = f'build/human/{name}'
+				else:            f = f'build/zfish/{name}'
+				if cmp == 'txt': p = 'python3 txtcmp.py'
+				else:            p = 'python3 semcmp.py'
+				out = f'build/{basename}/{target}'
+				cli = f'{p} {f} {d} {opt} > {out}'
+				targets[out] = cli
 
 # create makefile
 print('all:\\')

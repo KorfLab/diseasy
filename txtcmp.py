@@ -1,4 +1,5 @@
 import argparse
+import glob
 import math
 import sys
 
@@ -33,13 +34,13 @@ def compare_text(text1, text2):
 
 ## Command Line Interface ##
 parser = argparse.ArgumentParser('text comparison program')
-parser.add_argument('file1')
-parser.add_argument('file2')
+parser.add_argument('file')
+parser.add_argument('dir')
 parser.add_argument('data', help='[words|lines]')
 arg = parser.parse_args()
 
-a = read_file(arg.file1, arg.data)
-b = read_file(arg.file2, arg.data)
-d = compare_text(a, b)
-print(d)
-
+a = read_file(arg.file, arg.data)
+for file in glob.glob(f'{arg.dir}/*'):
+	b = read_file(arg.file, arg.data)
+	d = compare_text(a, b)
+	print(arg.file, file, d)
