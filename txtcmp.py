@@ -41,6 +41,6 @@ arg = parser.parse_args()
 
 a = read_file(arg.file, arg.data)
 for file in glob.glob(f'{arg.dir}/*'):
-	b = read_file(arg.file, arg.data)
+	b = read_file(file, arg.data)
 	d = compare_text(a, b)
 	print(arg.file, file, d)
