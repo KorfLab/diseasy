@@ -63,8 +63,8 @@ for basename, (text, d) in base.items():
 		for cmp in ('txt', 'sem'):
 			for opt in ('words', 'lines'):
 				target = f'{name}-{d}-{cmp}-{opt}'
-				if name in text: f = f'build/human/{name}'
-				else:            f = f'build/zfish/{name}'
+				if name in htext: f = f'build/human/{name}'
+				else:             f = f'build/zfish/{name}'
 				if cmp == 'txt': p = 'python3 txtcmp.py'
 				else:            p = 'python3 semcmp.py'
 				out = f'build/{basename}/{target}'
