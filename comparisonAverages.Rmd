@@ -1,0 +1,82 @@
+---
+title: "diseasy.aves"
+output: html_document
+date: "2024-05-19"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Load
+```{r, include=FALSE}
+library(tidyverse)
+library(ggplot2)
+library(tibble)
+library(reshape2)
+```
+
+
+```{r, include=FALSE}
+h2h <- read_tsv("h2h.aves", col_names = c("gene", "semLines", "semWords", "textLines", "textWords"))
+
+z2z <- read_tsv("z2z.aves", col_names = c("gene", "semLines", "semWords", "textLines", "textWords"))
+
+h2z <- read_tsv("h2z.aves", col_names = c("gene", "semLines", "semWords", "textLines", "textWords"))
+
+h2h <- h2h[,1:5]
+z2z <- z2z[,1:5]
+h2z <- h2z[,1:5]
+```
+
+# Add averages
+```{r, results='hide'}
+h2h %>%
+  add_row(gene = 'Mean', !!! colMeans(.[-1]))
+
+z2z %>%
+  add_row(gene = 'Mean', !!! colMeans(.[-1]))
+
+h2z %>%
+  add_row(gene = 'Mean', !!! colMeans(.[-1]))
+
+
+h2hMean <- colMeans(h2h[-1])
+z2zMean <-colMeans(z2z[-1])
+h2zMean <-colMeans(h2z[-1])
+
+Mean4 = as.data.frame(list(h2hMean,z2zMean,h2zMean), col.names = c("H2H","Z2Z","H2Z"))
+
+```
+
+
+
+```{r}
+human = as.data.frame(t(h2hMean))
+human = pivot_longer(human, c(semLines, semWords, textLines,textWords), names_to = "Comparison", values_to = "Value")
+ggplot(human, aes(y= Value, x=Comparison))+
+  geom_col()+
+  labs(title="Human to Human")+
+  ylim(0,1)
+
+
+fish = as.data.frame(t(z2zMean))
+fish = pivot_longer(fish, c(semLines, semWords, textLines,textWords), names_to = "Comparison", values_to = "Value")
+ggplot(fish, aes(y= Value, x=Comparison))+
+  geom_col()+
+  labs(title="fish to fish")+
+  ylim(0,1)
+
+both = as.data.frame(t(h2zMean))
+both = pivot_longer(both, c(semLines, semWords, textLines,textWords), names_to = "Comparison", values_to = "Value")
+ggplot(both, aes(y= Value, x=Comparison))+
+  geom_col()+
+  labs(title="Human to fish")+
+  ylim(0,1)
+
+
+```
+
+
+
+
