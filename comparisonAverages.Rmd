@@ -13,7 +13,7 @@ knitr::opts_chunk$set(echo = TRUE)
 library(tidyverse)
 library(ggplot2)
 library(tibble)
-library(reshape2)
+library(ggpubr)
 ```
 
 
@@ -78,5 +78,40 @@ ggplot(both, aes(y= Value, x=Comparison))+
 ```
 
 
+```{r, results='hide'}
+h2hMean <- colMeans(h2h[-1])
 
+h <- as.data.frame(h2hMean,row.names = c("semLines", "semWords", "textLines","textWords"))
+colnames(h)<- "mean"
+h <- add_column(h, comp =c("semLines", "semWords", "textLines","textWords"), species = "h2h")
+h
+
+z <- as.data.frame(z2zMean,row.names = c("semLines", "semWords", "textLines","textWords"))
+colnames(z)<- "mean"
+z<- add_column(z, comp =c("semLines", "semWords", "textLines","textWords"), species = "z2z")
+z
+
+b <- as.data.frame(h2zMean,row.names = c("semLines", "semWords", "textLines","textWords"))
+colnames(b)<- "mean"
+b<- add_column(b, comp =c("semLines", "semWords", "textLines","textWords"), species = "h2z")
+b
+
+a = h %>%
+  add_row(z) %>%
+  add_row(b)
+a
+
+```
+
+```{r}
+p1 <- ggplot(a)+
+  geom_col(aes(x=comp, y=mean,group = species, fill = species), position = "dodge")
+
+
+p2<- ggplot(a)+
+  geom_col(aes(x=species, y=mean,group = comp, fill = comp), position = "dodge")
+
+
+ggarrange(p1, p2, ncol=2)
+```
 
