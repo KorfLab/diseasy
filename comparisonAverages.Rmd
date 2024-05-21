@@ -143,7 +143,11 @@ ui <- fluidPage( #create the overall page
                        choices =list("Semantic + Lines" = "semLines",
                      "Semantic + Words" = "semWords",
                      "Text + Lines"= "textLines",
-                     "Text + Words" = "textWords"))
+                     "Text + Words" = "textWords"), 
+                     selected = c("semLines",
+                     "semWords",
+                     "textLines",
+                     "textWords"))
       ),
     
     # Show a plot of the generated distribution
@@ -159,28 +163,31 @@ ui <- fluidPage( #create the overall page
 server <- function(input, output) {
     # server code here
   
-    observe({
-      plotTrait <- as.name(input$species)
-      plotTrait2 <- as.name(input$Comparison)
-
-      only = filter(a, species == plotTrait)
-      only = filter(only, comp == plotTrait2)
+    
+  
+    inputData <- reactive({
+      
+      #plotTrait <- as.name(input$species)
+      #plotTrait2 <- as.name(input$Comparison)
+      
+      pure = filter(a, species == input$species)
+      pured = filter(pure, comp == input$Comparison)
+      return(pured)
+      
     })
   
   
     output$barPlot <- renderPlot({
       
-      
-      
-      p1<- ggplot(data=only,
+      p1<- ggplot(data=inputData,
                   aes(
                       x = comp, y= mean
                   )
       )
-      p1 + geom_col(position = "dodge")
+      p1 + geom_col()
     })
     
-    output$text <- renderText({paste("You have selected", input$species, input$Comparison, input$Data)})
+    output$text <- renderText({paste("You have selected", as.name(input$Comparison), input$Comparison)})
     
   }
   
