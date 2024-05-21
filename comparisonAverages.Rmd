@@ -81,19 +81,19 @@ ggplot(both, aes(y= Value, x=Comparison))+
 ```{r, results='hide'}
 h2hMean <- colMeans(h2h[-1])
 
-h <- as.data.frame(h2hMean,row.names = c("semLines", "semWords", "textLines","textWords"))
+h <- as.data.frame(h2hMean,row.names = c("semanticLines", "semanticWords", "textLines","textWords"))
 colnames(h)<- "mean"
-h <- add_column(h, comp =c("semLines", "semWords", "textLines","textWords"), species = "h2h")
+h <- add_column(h, comp =c("semanticLines", "semanticWords", "textLines","textWords"), species = "h2h")
 h
 
-z <- as.data.frame(z2zMean,row.names = c("semLines", "semWords", "textLines","textWords"))
+z <- as.data.frame(z2zMean,row.names = c("semanticLines", "semanticWords", "textLines","textWords"))
 colnames(z)<- "mean"
-z<- add_column(z, comp =c("semLines", "semWords", "textLines","textWords"), species = "z2z")
+z<- add_column(z, comp =c("semanticLines", "semanticWords", "textLines","textWords"), species = "z2z")
 z
 
-b <- as.data.frame(h2zMean,row.names = c("semLines", "semWords", "textLines","textWords"))
+b <- as.data.frame(h2zMean,row.names = c("semanticLines", "semanticWords", "textLines","textWords"))
 colnames(b)<- "mean"
-b<- add_column(b, comp =c("semLines", "semWords", "textLines","textWords"), species = "h2z")
+b<- add_column(b, comp =c("semanticLines", "semanticWords", "textLines","textWords"), species = "h2z")
 b
 
 a = h %>%
@@ -113,5 +113,81 @@ p2<- ggplot(a)+
 
 
 ggarrange(p1, p2, ncol=2)
+```
+
+```{r}
+library(shiny)
+library(tidyverse)
+# other libraries here
+
+# data loading and one-time processing here
+a
+
+# Define UI for application 
+ui <- fluidPage( #create the overall page
+    #UI code here
+  
+  titlePanel("Average Comparison Scores"),
+  
+  helpText("Mean scores for human to human disease descriptions, zebrafish to zebrafish phenotype, and human to zebrafish comparison for text and semantic, words or lines."),
+  
+  sidebarLayout(
+    sidebarPanel(
+      radioButtons("species", #the input variable that the value will go into
+                   "Choose a species to display:",
+                   choices =list("Human to Human" = "h2h",
+                     "Zebrafish to Zebrafish" = 'z2z',
+                     "Human to Zebrafish"= "h2z")),
+        
+    checkboxGroupInput("Comparison", "Choose a comparison method to display:", 
+                       choices =list("Semantic + Lines" = "semLines",
+                     "Semantic + Words" = "semWords",
+                     "Text + Lines"= "textLines",
+                     "Text + Words" = "textWords"))
+      ),
+    
+    # Show a plot of the generated distribution
+    mainPanel(
+      plotOutput("barPlot"),
+      textOutput("text")
+    )))
+  
+  
+
+
+# Define server logic 
+server <- function(input, output) {
+    # server code here
+  
+    observe({
+      plotTrait <- as.name(input$species)
+      plotTrait2 <- as.name(input$Comparison)
+
+      only = filter(a, species == plotTrait)
+      only = filter(only, comp == plotTrait2)
+    })
+  
+  
+    output$barPlot <- renderPlot({
+      
+      
+      
+      p1<- ggplot(data=only,
+                  aes(
+                      x = comp, y= mean
+                  )
+      )
+      p1 + geom_col(position = "dodge")
+    })
+    
+    output$text <- renderText({paste("You have selected", input$species, input$Comparison, input$Data)})
+    
+  }
+  
+
+
+# Run the application 
+shinyApp(ui = ui, server = server)
+
 ```
 
