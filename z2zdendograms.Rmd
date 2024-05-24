@@ -1,0 +1,96 @@
+---
+title: "dz2zdendograms"
+output: html_document
+date: "2024-05-19"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## libraries
+```{r}
+library(dendextend)
+library(tidyverse)
+```
+
+#load matricies
+```{r, results='hold'}
+z2zsemlines<- read_tsv("z2z-sem-lines.mat")
+z2ztxtlines<- read_tsv("z2z-txt-lines.mat")
+z2ztxtwords<- read_tsv("z2z-txt-words.mat")
+z2zsemwords<- read_tsv("z2z-sem-words.mat")
+```
+
+# z2z dendograms
+## sl
+```{r}
+zzsl<-as.dist(z2zsemlines[,-1])
+head(zzsl)
+zzsl_avg <- hclust(zzsl, method = 'average')
+plot(zzsl_avg, sub="average")
+zzsl.dend.obj <- as.dendrogram(zzsl_avg)
+zzsl.dend <- color_branches(zzsl.dend.obj, h=0.5)
+plot(zzsl.dend)
+```
+
+## sw
+```{r}
+zzsw<-as.dist(z2zsemwords[,-1])
+head(zzsw)
+zzsw_avg <- hclust(zzsw, method = 'average')
+plot(zzsw_avg, sub="average")
+zzsw.dend.obj <- as.dendrogram(zzsw_avg)
+zzsw.dend <- color_branches(zzsw.dend.obj, h=0.5)
+plot(zzsw.dend)
+```
+
+## tw
+```{r}
+zztw<-as.dist(z2ztxtwords[,-1])
+head(zztw)
+zztw_avg <- hclust(zztw, method = 'average')
+plot(zztw_avg, sub="average")
+zztw.dend.obj <- as.dendrogram(zztw_avg)
+zztw.dend <- color_branches(zztw.dend.obj, h=0.5)
+plot(zztw.dend)
+```
+
+##tl
+```{r}
+zztl<-as.dist(z2ztxtlines[,-1])
+head(zztl)
+zztl_avg <- hclust(zztl, method = 'average')
+plot(zztl_avg, sub="average")
+zztl.dend.obj <- as.dendrogram(zztl_avg)
+# k= no of clusters, h= height of cut
+zztl.dend <- color_branches(zztl.dend.obj, k=220)
+plot(zztl.dend)
+```
+
+```{r}
+# cut clusters
+zztl.cut550 <- cutree(zztl_avg, k=550)
+plot(zztl_avg)
+rect.hclust(zztl_avg, k=550)
+```
+
+```{r}
+# id clusters by cut
+zztl.cluster.550 <- z2ztxtlines[,-1]
+zztl.cluster.550 <- mutate(zztl.cluster.550, cluster = zztl.cut550)
+head(zztl.cluster.550)
+zztl.count <- count(zztl.cluster.550, cluster)
+summary(zztl.count[2])
+head(zztl.count)
+
+head(zztl.cut550)
+
+```
+```{r}
+babs = as.data.frame(as.matrix(zztl.cut550))
+filter(babs, V1 == 1)
+babs
+```
+
+
