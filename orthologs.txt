@@ -1,0 +1,647 @@
+AARS1	aars1
+ABCB11	abcb11b
+ABCB4	abcb4
+ACAN	acana
+ACTA1	actc1a	acta1b
+ADD3	add3a
+AGBL5	agbl5
+AGRN	agrn
+AKT2	akt2
+ALDH1A3	aldh1a3
+ALX1	alx1
+ANLN	anln
+ANTXR2	antxr2a
+AP4S1	ap4s1
+APC	apc
+APOC2	apoc2
+APP	appa	appb
+ARHGDIA	arhgdia
+ARHGEF2	arhgef2
+ARL6IP1	arl6ip1
+ASAH1	asah1b
+ATF6	atf6
+ATL1	atl1
+ATP13A2	atp13a2
+ATP1A1	atp1a1a.1
+ATP1A2	atp1a2a
+ATP2A2	atp2a2b
+ATP5PO	atp5po
+ATP6V0C	atp6v0cb	atp6v0ca
+ATP6V1A	atp6v1aa
+ATP6V1B2	atp6v1b2
+AUH	auh
+AVP	oxt
+BAG3	bag3
+BBS2	bbs2
+BCL11B	bcl11ba
+BCS1L	bcs1l
+BMP1	bmp1a
+BMP15	bmp15
+BMP4	bmp4
+BMPR1A	bmpr1aa	bmpr1ab
+BMPR1B	bmpr1ba	bmpr1bb
+BMPR2	bmpr2b	bmpr2a
+BRCA2	brca2
+BRF1	brf1b
+CA2	ca2	cahz
+CACNA1A	cacna1aa	cacna1ab
+CACNA1C	cacna1c
+CAD	cad
+CARS2	cars2
+CATIP	catip
+CAV3	cav3
+CD27	tnfrsf1b
+CD2AP	cd2ap
+CDC6	cdc6
+CDH2	cdh2
+CDH3	cdh1
+CDK5	cdk5
+CDON	cdon
+CDT1	cdt1
+CEP120	cep120
+CEP55	cep55l
+CERKL	cerkl
+CFAP70	cfap70
+CFTR	cftr
+CHAT	chata
+CHCHD10	chchd10
+CHD7	chd7
+CHRM3	chrm3a
+CHRNA1	chrna1
+CHRNA2	chrna2a
+CHRND	chrnd
+CHRNE	chrne
+CHSY1	chsy1
+CHUK	chuk
+CITED2	cited2
+CLCN7	clcn7
+CLN3	cln3
+CLN5	cln5
+CLPB	CLPB
+CNOT1	cnot1
+CNTN1	cntn1b
+CNTN2	robo4
+COA6	coa6
+COASY	coasy
+COG4	cog4
+COL11A1	col11a1b	col11a1a
+COL11A2	col11a2
+COL1A1	col1a1b	col1a1a
+COL1A2	col1a2
+COL2A1	col2a1a
+COL4A1	col4a1
+COL5A1	col5a1
+COPA	copa
+COQ8B	coq8b
+COX5A	cox5aa	cox5ab
+CPA6	cpa6
+CPAMD8	cpamd8
+CPN1	cpn1
+CRB1	crb1
+CRTAP	crtap
+CRYAA	cryaa
+CRYAB	cryaba	cryabb
+CSF1R	csf1rb
+CSF3R	csf3r
+CTNNA1	ctnna1
+CTNNB1	ctnnb2	ctnnb1
+CTNS	ctns
+CTPS1	ctps1b	ctps1a
+CTSD	ctsd
+CTSF	ctsl.1	tinagl1
+CTSK	ctsk
+CUX2	cux2b
+CXCR4	cxcr4b	cxcr4a
+CYBA	cyba
+CYFIP2	cyfip2
+CYLD	cylda
+CYP2R1	cyp2r1
+DCTN1	dctn1b	dctn1a
+DDX11	ddx11
+DEGS1	degs1
+DHDDS	dhdds
+DICER1	dicer1
+DLX3	dlx3b
+DLX5	dlx5a
+DMXL2	dmxl2
+DNAH1	dnah1
+DNAH10	DNAH10
+DNMBP	dnmbp
+DNMT1	dnmt1
+DNMT3A	dnmt3ab	dnmt3aa
+DOCK8	dock8
+DOK7	dok7
+DOLK	dolk
+DPM1	dpm1
+DPM2	dpm2
+DPM3	dpm3
+DPY19L2	dpy19l1l
+DSP	dspb	dspa
+DUSP6	dusp6
+DVL3	dvl3a
+DYNC1H1	dync1h1
+DYNC2H1	DYNC2H1
+DYSF	dysf
+DZIP1	dzip1
+EDAR	edar
+EDNRB	ednrbb	ednrba
+EEF1A2	eef1a2
+EGR2	egr2b
+EMP2	emp2
+EPCAM	epcam
+EPG5	epg5
+EPHB4	ephb4b
+EPO	epob	epoa
+ERCC2	ercc2
+ERCC4	ercc4
+ERCC6	ercc6
+ESCO2	esco2
+ESR2	esr2a	esr2b
+EXOSC2	exosc2
+EXOSC3	exosc3
+EXOSC8	exosc8
+EXOSC9	exosc9
+EZH2	ezh2
+FANCA	fanca
+FANCC	fancc
+FANCD2	fancd2
+FANCE	fance
+FANCI	fanci
+FARS2	fars2
+FASTKD2	fastkd2
+FBXO7	fbxo7
+FEZF1	fezf1
+FGF10	fgf10b	fgf10a
+FGF8	fgf8a
+FGFR1	fgfr1a	fgfr1b
+FGFR2	fgfr2
+FGFR3	fgfr3
+FHL1	fhl1b	fhl1a
+FIG4	FIG4
+FIGLA	figla
+FKRP	fkrp
+FKTN	fktn
+FLNC	flnca	flncb
+FLT4	flt4
+FMR1	fmr1
+FOXC1	foxc1a	foxc1b
+FOXL2	foxl2a	foxl2b
+FOXN1	foxn1
+FXR1	fxr1
+FZD2	fzd2
+FZD4	fzd4
+FZR1	fzr1a
+GABRA1	gabra1
+GABRA2	gabra2a
+GABRG2	gabrg2
+GAD1	gad1b
+GAL	galn
+GALT	galt
+GARS1	gars1
+GATA2	gata2a
+GATA4	gata4
+GATA6	gata6
+GBA1	gba
+GBA2	gba2
+GCK	gck
+GDAP1	gdap1
+GDF5	gdf5
+GDF9	gdf9
+GFI1B	gfi1b
+GFPT1	gfpt1
+GINS1	gins1
+GIPC1	gipc1
+GJA1	cx43
+GJB2	cx30.3
+GJB6	cx30.3
+GLI2	gli2a	gli2b
+GLI3	gli3
+GLIS3	glis3
+GLRA1	glra1
+GLRB	glrbb
+GLRX5	glrx5
+GMNN	gmnn
+GMPPB	gmppb
+GNE	gne
+GNRH1	gnrh3
+GOT2	got2a
+GPR179	si:ch211-156l18.8
+GPX4	gpx4b
+GRHL2	grhl2a	grhl2b
+GRIN1	grin1a
+GRM6	grm6b
+GRN	grnb
+GTPBP3	gtpbp3
+HAX1	hax1
+HCN1	hcn1
+HEPACAM	hepacama
+HES7	her1
+HNF4A	hnf4a
+HSPD1	hspd1
+HSPG2	hspg2
+HTRA1	htra1a
+IBA57	iba57
+IFNAR2	ifngr1	ifnlr1	il10ra
+IFNG	ifng1	ifng1r
+IFNGR1	ifngr1	ifnlr1	il10ra
+IFT140	ift140
+IFT172	ift172
+IFT74	ift74
+IFT80	ift80
+IFT81	ift81
+IKBKB	ikbkb
+IKZF1	ikzf1
+IL10RA	ifngr1	ifnlr1
+IL12RB1	lifrb
+IL17RD	il17rd
+IMPDH1	impdh1b	impdh1a
+INF2	CABZ01060373.1
+INPP5K	inpp5ka
+INS	ins	insb
+INSR	insra	insrb
+IQSEC1	iqsec1b	IQSEC1
+IRF2BP2	irf2bp2b
+IRF6	irf6
+IRF8	irf8
+ITGA2B	itga2b
+ITGA6	itga6b	itga6a
+ITPR1	itpr1b
+KANK2	kank2
+KATNB1	katnb1
+KCNB1	kcnb1
+KCNJ10	kcnj10a
+KCNJ11	kcnj11
+KCNJ13	kcnj13
+KCNMA1	KCNMA1	kcnma1a
+KDSR	kdsr
+KIAA0586	si:ch211-185a18.2
+KIF1B	kif1b
+KIF3B	kif3b
+KIF5A	kif5aa
+KIRREL1	kirrel1a	kirrel1b
+KISS1	kiss1
+KIT	kita	kitb
+KITLG	kitlga	kitlgb
+KLHL40	klhl40b	klhl40a
+KLHL41	klhl41b	klhl41a
+KRAS	kras
+KREMEN1	kremen1
+LAMB1	lamb1a
+LAMB2	lamb2
+LCA5	lca5
+LDB3	ldb3a
+LEMD3	lemd3
+LFNG	lfng
+LGI1	lgi1a	lgi1b
+LHCGR	lhcgr
+LIG3	lig3
+LIG4	lig4
+LMNA	lmna
+LMX1B	lmx1bb	lmx1ba
+LPAR6	lpar6a
+LRAT	lratb.1
+LRP2	lrp2a
+LRP4	lrp4
+LRP5	lrp5
+LRRC8A	lrrc8ab	lrrc8aa
+LRSAM1	lrsam1
+LSS	lss
+LTBP3	FP102018.1
+LTV1	ltv1
+LYST	lyst
+LZTR1	lztr1
+MAFB	mafba
+MAG	mag
+MAK	mak
+MAPK1	mapk1
+MAPRE2	mapre2
+MARS1	mars1
+MBTPS1	mbtps1
+MCM5	mcm5
+MED25	med25
+MEGF10	megf10
+MEIS2	meis2a
+MEOX1	meox1
+MESP2	mespbb	mespba	mespaa	mespab
+MFN2	mfn2
+MFRP	mfrp
+MICU1	micu1
+MIP	mipa	mipb
+MIR140	mir140
+MITF	mitfa
+MLC1	mlc1
+MMP20	mmp25b
+MPL	mpl
+MPV17	mpv17
+MTO1	mto1
+MTRR	mtrr
+MYBPC1	mybpc1
+MYBPC3	mybpc3
+MYL1	myl1
+MYO5B	myo5b
+MYOD1	myod1
+MYOT	myot
+NAA10	naa10
+NANS	nansa
+NAPB	napbb
+NBEAL2	nbeal2
+NCF1	ncf1
+NCKAP1L	NCKAP1L
+NDE1	nde1
+NEB	neb
+NECTIN1	nectin1a
+NEFL	neflb
+NEK1	nek1
+NEXN	nexn
+NF1	nf1b	nf1a
+NFIA	nfia
+NIPA1	nipa1
+NIPBL	nipbla	nipblb
+NLRC4	birc5b
+NOTCH1	notch1b	notch1a
+NOTCH3	notch3
+NPHS1	nphs1
+NPHS2	nphs2
+NR0B1	nr0b1
+NR2E3	nr2e3
+NR2F1	nr2f1a	nr2f1b
+NR2F2	nr2f2
+NR3C2	nr3c2
+NR5A1	nr5a1a
+NRL	nrl
+NSF	nsfb	nsfa
+NTRK2	ntrk2b
+NUP107	nup107
+NUP133	nup133
+NUP205	nup205
+NUP88	nup88
+NUP93	nup93
+NUS1	nus1
+OPA1	opa1
+OPN1SW	opn1sw1
+ORAI1	orai1b
+ORC1	orc1
+ORC4	orc4
+ORC6	orc6
+OSGEP	osgep
+OTULIN	otulina
+OTX2	otx2b
+PACS2	pacs2
+PAFAH1B1	pafah1b1b	pafah1b1a
+PANK2	pank2
+PARN	parn
+PAX2	pax2a
+PAX3	pax3b	pax3a
+PAX6	pax6b	pax6a
+PAX7	pax7a	pax7b
+PAX8	pax8
+PCNT	pcnt
+PCYT2	pcyt2
+PDE6B	pde6a
+PEPD	pepd
+PHACTR1	phactr1
+PHOX2B	phox2bb
+PI4KA	pi4kaa
+PIEZO1	piezo1
+PIGP	pigp
+PIGT	pigt
+PIK3CD	pik3cd
+PINK1	pink1
+PKP2	pkp2
+PLA2G6	pla2g6
+PLCB3	plcb3
+PLCE1	plce1
+PLEKHG5	plekhg5b	plekhg5a
+PLK4	plk4
+PMP2	fabp11a	rbp7a
+PNPLA6	pnpla6
+POLA1	pola1
+POLG	polg
+POLR1A	polr1a
+POLR1C	polr1c
+POLR1D	polr1d
+POLR3B	polr3b
+POLR3K	polr3k
+POMGNT2	pomgnt2
+POMK	pomk
+POMT1	pomt1
+POMT2	pomt2
+PRDM12	prdm12b
+PRDM5	prdm5
+PRICKLE1	prickle1b	prickle1a
+PRKDC	prkdc
+PROK2	prok2
+PROM1	prom1b
+PRPF3	prpf3
+PRPF31	prpf31
+PRPF4	prpf4
+PRPF8	prpf8
+PSEN1	psen1
+PSEN2	psen2
+PTCH1	ptch1
+PTEN	ptena	ptenb
+PTPN11	ptpn11a
+PXDN	pxdn
+PYCR1	pycr1b	pycr1a
+PYCR2	pycr1b	pycr1a
+PYGM	pygma	pygmb
+PYROXD1	pyroxd1
+QDPR	qdprb1	qdpra
+RAC2	rac2
+RAD21	rad21a
+RAD51	rad51
+RAD51C	rad51c
+RAF1	raf1a
+RAG1	rag1
+RAG2	rag2
+RAPGEF2	rapgef2
+RAPSN	rapsn
+RBM8A	rbm8a
+REEP6	reep6
+REST	rest
+RHAG	rhag
+RHO	rho	exorh
+RIPPLY2	ripply1
+RNF170	rnf170
+RNF216	rnf216
+RNF220	rnf220a
+ROR2	ror2
+RP2	rp2
+RPGR	rpgra	rpgrb
+RPGRIP1	rpgrip1
+RPL10L	rpl10
+RPL11	rpl11
+RPL18	rpl18
+RPL27	rpl27
+RPL35	rpl35
+RPL35A	rpl35a
+RPL5	rpl5a
+RPS15A	rps15a
+RPS19	rps19
+RPS24	rps24
+RPS28	rps28
+RPS29	rps29
+RPS7	rps7
+RRM2B	rrm2b
+RTN4IP1	rtn4ip1
+RUNX2	runx2a
+RYR1	ryr1a	ryr1b
+RYR3	ryr3
+SALL4	sall4
+SCN10A	scn12aa	scn5lab
+SCN1B	scn1bb
+SCN8A	scn8aa
+SCUBE3	scube3
+SEC23A	sec23a
+SEC23B	sec23b
+SEMA3A	sema3ab
+SFXN4	sfxn4
+SGSH	sgsh
+SH3KBP1	sh3kbp1
+SH3PXD2B	sh3pxd2b
+SHANK3	shank3a	shank3b
+SHH	shhb	shha
+SIPA1L3	sipa1l3
+SIX6	six6a	six6b
+SLC18A2	slc18a2
+SLC1A2	slc1a2a	slc1a2b
+SLC25A46	slc25a46
+SLC26A2	slc26a2
+SLC26A3	slc26a3.1
+SLC33A1	slc33a1
+SLC34A1	slc34a1a
+SLC35B2	slc35b2
+SLC39A7	slc39a7
+SLC39A8	slc39a8
+SLC4A1	slc4a1a	slc4a1b
+SLC6A3	slc6a3
+SLC7A14	slc7a14a
+SLC9A3	slc9a3.2
+SLX4	slx4
+SMAD4	smad4a
+SMARCAD1	smarcad1a
+SMC3	smc3
+SMN2	smn1
+SMOC1	smoc1
+SNAP25	snap25a	snap25b
+SNAP29	snap29
+SNRNP200	snrnp200
+SNRPE	snrpe
+SNX10	snx10a
+SOD1	sod1
+SOS2	sos2
+SOX2	sox2
+SOX3	sox3
+SOX9	sox9b	sox9a
+SP7	sp7
+SPARC	sparc
+SPAST	spast
+SPECC1L	specc1lb	specc1la
+SPG11	spg11
+SPI1	spi1b
+SPRED1	spred1
+SPRY4	spry4
+SPTAN1	sptan1
+SPTB	sptb
+SPTLC1	sptlc1
+SQSTM1	sqstm1
+SRCAP	srcap
+STAC3	stac3
+STAT3	stat3
+STAT5B	stat5b	stat5a
+STIM1	stim1a
+STRA6	stra6
+STXBP1	stxbp1b	stxbp1a
+SUMF1	sumf1
+SURF1	surf1
+SYNE1	syne1b
+SYNE2	si:ch211-207i1.2
+SYNJ1	synj1
+TACSTD2	epcam
+TAMM41	tamm41
+TARS1	tars1
+TBC1D23	tbc1d23
+TBX2	tbx2b	tbx2a
+TBX3	tbx3a
+TBX4	tbx4
+TBX6	tbx6
+TBXAS1	tbxas1
+TCF3	tcf3a
+TCF4	TCF4
+TDRD7	tdrd7a
+TEK	tek
+TENM4	tenm4
+TERT	tert
+TFRC	tfr1a	tfr1b
+TGFB3	tgfb3
+THRA	thrab	thraa
+THRB	thrb
+TIA1	tia1l
+TLL1	tll1
+TMEM165	tmem165
+TMEM63C	tmem63c
+TNFAIP3	tnfaip3
+TNFRSF11A	tnfrsf1b
+TNFRSF4	tnfrsf1b
+TNNI2	tnni2a.4
+TNNT1	tnnt1
+TNNT2	tnnt2c	tnnt2a
+TNNT3	tnnt3b	tnnt3a
+TOP3A	top3a
+TP63	tp63
+TPM1	tpma
+TPP1	tpp1
+TRIM2	trim2a
+TRMU	trmu
+TRNT1	trnt1
+TRPA1	trpa1b
+TRPV4	trpv4
+TSEN54	tsen54
+TSHB	tshba
+TSHR	tshr
+TTC21B	ttc21b
+TTC7A	ttc7a
+TUBB4B	tubb4b
+TUBGCP4	tubgcp4
+TUBGCP6	appl2
+TULP1	tulp1a
+TWIST2	twist2
+TYR	tyr
+UBA5	uba5
+UBAP1	ubap1
+UBE2T	ube2t
+UGDH	ugdh
+UNC119	unc119b
+UNC45B	unc45b
+UNG	unga
+VCP	vcp
+VEGFC	vegfc
+VHL	vhl
+VIM	vim
+VPS11	vps11
+VPS33B	vps33b
+VPS37A	vps37a
+VPS45	vps45
+VPS51	vps51
+WDPCP	wdpcp
+WDR11	wdr11
+WDR19	wdr19
+WDR35	wdr35
+WDR73	wdr73
+WFS1	wfs1b	wfs1a
+WLS	wls
+WNK1	wnk1b	wnk1a
+WNT1	wnt1
+WNT10A	wnt10a
+WNT4	wnt4
+WNT5A	wnt5a
+WRN	wrn
+WT1	wt1b	wt1a
+WWOX	wwox
+YWHAG	ywhag1
+ZAP70	zap70
+ZEB2	zeb2b	zeb2a
+ZFYVE26	zfyve26
+ZFYVE27	zfyve27
+ZIC2	zic2a	zic2b
+ZNF408	znf408
