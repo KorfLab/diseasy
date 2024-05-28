@@ -1,0 +1,124 @@
+---
+title: "h2zconfirmation"
+output: html_document
+date: "2024-05-19"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## libraries
+```{r}
+library(dendextend)
+library(tidyverse)
+library(dplyr)
+```
+
+# load and setup
+```{r}
+zzsl<- read_tsv("z2z-sem-lines.mat")
+zgenes <- as.matrix(zzsl[,1])
+data<-as.dist(zzsl[,-1])
+
+orths = read.table("orthologs.txt", col.names = c("human", "z1","z2","z3","z4"), header = FALSE, sep = "\t", fill = TRUE)
+
+
+
+```
+# plot 
+```{r}
+hclust <- hclust(data, method = 'average')
+dend <- as.dendrogram(hclust)
+# k= no of clusters, h= height of cut
+dend <- color_branches(dend, h=0.1)
+plot(dend)
+
+```
+# cuts
+```{r}
+cut1 <- cutree(hclust, h=.1)
+
+cluster1 <- z2ztxtlines[,-1]
+cluster1 <- mutate(cluster1, cluster = cut1)
+#head(cluster1)
+count <- count(cluster1, cluster)
+summary(count[2])
+head(count)
+
+```
+# add gene names to cluster matrix
+```{r}
+clusters = as.data.frame(as.matrix(cut3))
+clusters$gene = zgenes
+colnames(clusters)[1] <- "cluster"
+colnames(clusters)[2] <- "gene"
+
+head(clusters)
+
+```
+
+
+# pull out
+```{r}
+target = "aars1"
+score = matrix()
+
+
+b = zzsl %>%
+  select(T = target,  ...1)
+
+tops = arrange(b, T)[1:5,]
+tops
+
+match=orths[which(orths == target, arr.ind = TRUE)[1],1]
+
+
+
+for(i in 1:5) {
+  i = tops[[i,2]]
+  if (orths[which(orths == i, arr.ind = TRUE)[1],1] == match)
+    score[target] = 1;
+}
+
+
+```
+
+```{r}
+score = matrix()
+
+
+for (target in zgenes) {
+  
+  b = zzsl %>%
+  select(T = target,  ...1)
+
+  tops = arrange(b, T)[1:8,]
+  
+  target = str_replace(target, "_",":")
+  match=orths[which(orths == target, arr.ind = TRUE)[1],1]
+  
+  
+  for(i in 1:8) {
+  j = tops[[i,2]]
+  j = str_replace(j, "_",":")
+  #print(j)
+  currscore = orths[which(orths == j, arr.ind = TRUE)[1],1] 
+  #print(currscore)
+  if (currscore == match){
+    score[target] = i
+  }
+}
+}
+score
+S = data.frame(score)
+
+```
+
+```{r}
+S %>% group_by(score) %>% summarise(ct = n())
+
+ggplot(S, aes(x=score))+
+  geom_histogram()
+```
+

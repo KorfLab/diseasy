@@ -64,7 +64,7 @@ zztl_avg <- hclust(zztl, method = 'average')
 plot(zztl_avg, sub="average")
 zztl.dend.obj <- as.dendrogram(zztl_avg)
 # k= no of clusters, h= height of cut
-zztl.dend <- color_branches(zztl.dend.obj, k=220)
+zztl.dend <- color_branches(zztl.dend.obj, h=0.25)
 plot(zztl.dend)
 ```
 
@@ -73,6 +73,12 @@ plot(zztl.dend)
 zztl.cut550 <- cutree(zztl_avg, k=550)
 plot(zztl_avg)
 rect.hclust(zztl_avg, k=550)
+
+zztl.cut25 <- cutree(zztl_avg, h=.25)
+plot(zztl_avg)
+rect.hclust(zztl_avg, h=.25)
+
+
 ```
 
 ```{r}
@@ -86,11 +92,35 @@ head(zztl.count)
 
 head(zztl.cut550)
 
+
+
+
+# id clusters by cut
+zztl.cluster.25 <- z2ztxtlines[,-1]
+zztl.cluster.25 <- mutate(zztl.cluster.25, cluster = zztl.cut25)
+head(zztl.cluster.25)
+zztl.count <- count(zztl.cluster.25, cluster)
+summary(zztl.count[2])
+head(zztl.count)
+
+head(zztl.cut25)
+
 ```
 ```{r}
 babs = as.data.frame(as.matrix(zztl.cut550))
 filter(babs, V1 == 1)
 babs
+
+filter(babs, V1 ==)
+
+```
+```{r}
+zgenes = z2ztxtlines[1]
+bab = add_column(babs,zgenes)
+bab <- rename(bab, gene = ...1)
+bab
+
+
 ```
 
 
