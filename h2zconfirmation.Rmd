@@ -18,14 +18,49 @@ library(dplyr)
 # load and setup
 ```{r}
 zzsl<- read_tsv("z2z-sem-lines.mat")
+zzsl$...1 = str_replace_all(zzsl$...1, "_",":")
+colnames(zzsl) = str_replace_all(colnames(zzsl), "_",":")
 zgenes <- as.matrix(zzsl[,1])
+zgenes <- str_replace_all(zgenes, "_",":")
 data<-as.dist(zzsl[,-1])
 
 orths = read.table("orthologs.txt", col.names = c("human", "z1","z2","z3","z4"), header = FALSE, sep = "\t", fill = TRUE)
 
 
 
+zztl<- read_tsv("z2z-txt-lines.mat")
+zztl$...1 = str_replace_all(zztl$...1, "_",":")
+colnames(zztl) = str_replace_all(colnames(zztl), "_",":")
+zgenestxt <- as.matrix(zzsl[,1])
+zgenestxt <- str_replace_all(zgenestxt, "_",":")
+datatxt<-as.dist(zztl[,-1])
+
+
 ```
+#zztl
+```{r}
+hclusttxt <- hclust(datatxt, method = 'average')
+
+cut1txt <- cutree(hclusttxt, h=.1)
+
+cluster1txt <- zztl[,-1]
+cluster1txt <- mutate(cluster1txt, cluster = cut1txt)
+#head(cluster1)
+counttxt <- count(cluster1txt, cluster)
+summary(counttxt[2])
+head(counttxt)
+
+clusterstxt = as.data.frame(as.matrix(cut1txt))
+clusterstxt$gene = zgenes
+colnames(clusterstxt)[1] <- "cluster"
+colnames(clusterstxt)[2] <- "gene"
+
+head(clusterstxt)
+
+```
+
+
+
 # plot 
 ```{r}
 hclust <- hclust(data, method = 'average')
@@ -39,7 +74,7 @@ plot(dend)
 ```{r}
 cut1 <- cutree(hclust, h=.1)
 
-cluster1 <- z2ztxtlines[,-1]
+cluster1 <- zzsl[,-1]
 cluster1 <- mutate(cluster1, cluster = cut1)
 #head(cluster1)
 count <- count(cluster1, cluster)
@@ -49,7 +84,7 @@ head(count)
 ```
 # add gene names to cluster matrix
 ```{r}
-clusters = as.data.frame(as.matrix(cut3))
+clusters = as.data.frame(as.matrix(cut1))
 clusters$gene = zgenes
 colnames(clusters)[1] <- "cluster"
 colnames(clusters)[2] <- "gene"
@@ -80,45 +115,127 @@ for(i in 1:5) {
   if (orths[which(orths == i, arr.ind = TRUE)[1],1] == match)
     score[target] = 1;
 }
+```
 
+
+```{r}
+clustnum = clusters[which(clusters == target, arr.ind = TRUE)[1],1]
+clustnum
+subset = filter(clusters, cluster == clustnum)
+if(target %in% subset[,2]){
+  print(1)
+}
 
 ```
 
+# auto
 ```{r}
-score = matrix()
 
+# score matriz - for each z gene, ranking of ortholog and whether ortholog in cluster of highest rank
+score = matrix(0, nrow = 731, ncol=5, dimnames = list(zgenes,c("gene", "rankingSem","captureSem", "rankingTxt","captureTxt")))
+score[,1]= zgenes
 
+# for each zgene sem
 for (target in zgenes) {
+  ###### change to h2z #############
   
+  # seperate out 8 smallest scores and name of associated gene
   b = zzsl %>%
   select(T = target,  ...1)
-
   tops = arrange(b, T)[1:8,]
   
-  target = str_replace(target, "_",":")
+  #target = str_replace(target, "_",":")
+  # match is the ortholog of the zgene
   match=orths[which(orths == target, arr.ind = TRUE)[1],1]
   
-  
+  # for the top 8
   for(i in 1:8) {
+    
+  # j is the gene in top 8
   j = tops[[i,2]]
   j = str_replace(j, "_",":")
   #print(j)
+  
+  # find ortholog of top scoring gene
   currscore = orths[which(orths == j, arr.ind = TRUE)[1],1] 
   #print(currscore)
+  
+  # if ortholog of top score is the same as ortholog of source gene, correctly identified match
   if (currscore == match){
-    score[target] = i
+    #print(target)
+    score[target,2] = i
+  }
+  
+  # identify cluster of top ranking gene
+  clustnum = clusters[which(clusters == j, arr.ind = TRUE)[1],1]
+  # list all genes in that cluster
+  subset = filter(clusters, cluster == clustnum)
+  # if cluster of top ranking gene includes the source gene, correctly captured
+  if(target %in% subset[,2]){
+    score[target,3] = 1
   }
 }
 }
-score
+
+for (target in zgenestxt) {
+  ###### change to h2z #############
+  
+  # seperate out 8 smallest scores and name of associated gene
+  b = zztl %>%
+  select(T = target,  ...1)
+  tops = arrange(b, T)[1:8,]
+  
+  #target = str_replace(target, "_",":")
+  # match is the ortholog of the zgene
+  match=orths[which(orths == target, arr.ind = TRUE)[1],1]
+  
+  # for the top 8
+  for(i in 1:8) {
+    
+  # j is the gene in top 8
+  j = tops[[i,2]]
+  j = str_replace(j, "_",":")
+  #print(j)
+  
+  # find ortholog of top scoring gene
+  currscore = orths[which(orths == j, arr.ind = TRUE)[1],1] 
+  #print(currscore)
+  
+  # if ortholog of top score is the same as ortholog of source gene, correctly identified match
+  if (currscore == match){
+    #print(target)
+    score[target,4] = i
+  }
+  
+  # identify cluster of top ranking gene
+  clustnumtxt = clusterstxt[which(clusters == j, arr.ind = TRUE)[1],1]
+  # list all genes in that cluster
+  subsettxt = filter(clusterstxt, cluster == clustnumtxt)
+  # if cluster of top ranking gene includes the source gene, correctly captured
+  if(target %in% subsettxt[,2]){
+    score[target,5] = 1
+  }
+}
+}
+
 S = data.frame(score)
 
 ```
 
-```{r}
-S %>% group_by(score) %>% summarise(ct = n())
+#summarize
 
-ggplot(S, aes(x=score))+
-  geom_histogram()
+```{r}
+S %>% group_by(rankingSem) %>% summarise(ct = n())
+
+ggplot(S, aes(x=rankingSem))+
+  geom_histogram(stat = "count")
+
+S %>% group_by(captureSem) %>% summarise(ct = n())
+
+S %>% group_by(rankingTxt) %>% summarise(ct = n())
+S %>% group_by(captureTxt) %>% summarise(ct = n())
+
+#ggplot(S, aes(x=cluster))+
+ # geom_histogram(stat = "count")
 ```
 
