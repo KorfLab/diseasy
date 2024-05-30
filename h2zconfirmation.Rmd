@@ -37,6 +37,27 @@ datatxt<-as.dist(zztl[,-1])
 
 
 ```
+# cluster analysis
+```{r}
+library(cluster)
+set.seed(125)
+
+mycluster <- function(x, k) list(cluster=cutree(hclust(zztl, method = "average"),k=k))
+
+myclusGap <- clusGap(try,
+                     FUN = mycluster, 
+                     K.max = 300, 
+                     B = 10)
+
+plot(myclusGap, main = "Gap Statistic")+
+abline(v=281, col = "red")
+
+with(myclusGap, maxSE(Tab[,"gap"], Tab[,"SE.sim"], method="globalSEmax")) # 281
+
+```
+
+
+
 #zztl
 ```{r}
 hclusttxt <- hclust(datatxt, method = 'average')
@@ -82,7 +103,7 @@ summary(count[2])
 head(count)
 
 ```
-# add gene names to cluster matrix
+# add gene names to cluster matrix -- clusters
 ```{r}
 clusters = as.data.frame(as.matrix(cut1))
 clusters$gene = zgenes
@@ -96,7 +117,7 @@ head(clusters)
 
 # pull out
 ```{r}
-target = "aars1"
+target = "cog4"
 score = matrix()
 
 
@@ -115,16 +136,20 @@ for(i in 1:5) {
   if (orths[which(orths == i, arr.ind = TRUE)[1],1] == match)
     score[target] = 1;
 }
-```
 
-
-```{r}
 clustnum = clusters[which(clusters == target, arr.ind = TRUE)[1],1]
 clustnum
 subset = filter(clusters, cluster == clustnum)
 if(target %in% subset[,2]){
   print(1)
 }
+
+score
+```
+
+
+```{r}
+
 
 ```
 

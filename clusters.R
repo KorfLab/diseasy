@@ -1,3 +1,4 @@
+library(tidyverse)
 z2ztxtlines<- read_tsv("z2z-txt-lines.mat")
 
 zztl<-as.dist(z2ztxtlines[,-1])
@@ -30,3 +31,38 @@ rename(cluster, gene = ...1)
 cluster
 
 filter(cluster, V1== target)
+
+# heatmap too big
+library(pvclust)
+set.seed(12456) #This ensure that we will have consistent results with one another
+try = as.matrix(z2ztxtlines[,-1])
+fit <- pvclust(try, method.hclust = 'average', method.dist = "euclidean", nboot = 10)
+plot(fit, print.num=FALSE) # dendogram with p-values
+
+library(gplots)
+heatmap.2(try, Rowv=zztl.dend.obj, scale="row", density.info="none", trace="none")
+
+
+library(cluster)
+set.seed(125)
+
+mycluster <- function(x, k) list(cluster=cutree(hclust(zztl, method = "average"),k=k))
+
+myclusGap <- clusGap(try,
+                     FUN = mycluster, 
+                     K.max = 300, 
+                     B = 10)
+
+plot(myclusGap, main = "Gap Statistic")
+
+with(myclusGap, maxSE(Tab[,"gap"], Tab[,"SE.sim"], method="globalSEmax")) # 281
+
+# not work
+myclusGap2 <- clusGap(try,
+                     FUN = mycluster, 
+                     K.max = 600, 
+                     B = 1)
+
+plot(myclusGap2, main = "Gap Statistic")
+
+with(myclusGap2, maxSE(Tab[,"gap"], Tab[,"SE.sim"], method="firstSEmax"))
