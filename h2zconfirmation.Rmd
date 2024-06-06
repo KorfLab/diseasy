@@ -201,8 +201,7 @@ head(clusters)
 score = matrix(0, nrow = 647, ncol=7, dimnames = list(hgenes[-1],c("gene", "rankingSem","captureSem.1","captureSemOpt", "rankingTxt","captureTxt.1", "captureTxtOpt")))
 score[,1]= hgenes[-1]
 
-scoreorth = matrix(0, nrow = 647, ncol=3, dimnames = list(hgenes[-1],c("gene", "sem","txt")))
-scoreorth[,1]= hgenes[-1]
+semorthscores = vector()
 
 
 # for each zgene sem
@@ -211,12 +210,12 @@ for (htarget in hgenes[-1]) {
   
   # seperate out 8 smallest scores and name of associated gene
   b = hzsl %>%
-  select(T = htarget,  zfgene)
-  tops = arrange(b, T)
+  select(t=htarget, zfgene)
+  tops = arrange(b, t)
   zmatches = orths[(which(orths == htarget)[1]),-1]
   #target = str_replace(target, "_",":")
   
-  scoreorth[htarget,2] = tops[1,T]
+  
   
   # for the top 8
   for(znum in 1:731) {
@@ -234,6 +233,7 @@ for (htarget in hgenes[-1]) {
   if (currscore == htarget){
     #print(target)
     score[htarget,2] = znum
+    semorthscores = append(semorthscores,tops[znum,1])
   }
   
 
@@ -258,6 +258,9 @@ for (htarget in hgenes[-1]) {
 
 
 ```{r}
+
+txtorthscores = vector()
+
 for (htarget in hgenes[-1]) {
   ###### change to h2z #############
   
@@ -280,6 +283,8 @@ for (htarget in hgenes[-1]) {
   # find ortholog of top scoring gene
   currscore = orths[which(orths == zname, arr.ind = TRUE)[1],1]
   #print(currscore)
+  
+  txtorthscores = append(semorthscores,tops[1,1])
 
   # if ortholog of top score is the same as ortholog of source gene, correctly identified match
   if (currscore == htarget){
@@ -442,8 +447,8 @@ hist(S$captureTxt)
 
 # orth aves
 ```{r}
-for(i in S$rankingSem){
-  
-}
+mean(as.data.frame(semorthscores)[,2])
+mean(as.data.frame(txtorthscores)[,2])
+
 ```
 
