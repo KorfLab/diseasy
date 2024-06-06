@@ -16,7 +16,7 @@ library(dplyr)
 ```
 
 # load and setup
-```{r}
+```{r, results='hold', warning=FALSE, message=FALSE}
 #zz sem lines
 zzsl<- read_tsv("z2z-sem-lines.mat")
 zzsl$...1 = str_replace_all(zzsl$...1, "_",":")
@@ -54,24 +54,40 @@ zgeneshz <- str_replace_all(zgeneshz, "_",":")
 
 
 ```
+
 # cluster analysis z2z
 ```{r}
 # library(cluster)
 # set.seed(125)
-# 
-# mycluster <- function(x, k) list(cluster=cutree(hclust(data, method = "average"),k=k))
-# 
-# myclusGap <- clusGap(data,
-#                      FUN = mycluster,
-#                      K.max = 300,
-#                      B = 10)
-# 
-# plot(myclusGap, main = "Gap Statistic")+
-# abline(v=281, col = "red")
-# 
-# with(myclusGap, maxSE(Tab[,"gap"], Tab[,"SE.sim"], method="globalSEmax")) # 281
-
+#
+# myclustertxt <- function(x, k) list(cluster=cutree(hclust(datatxt, method = "average"),k=k))
+#
+# myclusGaptxt <- clusGap(as.matrix(zztl[,-1]),
+#                      FUN = myclustertxt,
+#                      K.max = 350,
+#                      B = 2)
+#
+# plot(myclusGaptxt, main = "Gap Statistic")+
+# abline(v=314, col = "red")
+#
+# txtclustnum = with(myclusGaptxt, maxSE(Tab[,"gap"], Tab[,"SE.sim"], method="globalSEmax")) # 314
+#
+#
+#
+# myclustersem <- function(x, k) list(cluster=cutree(hclust(data, method = "average"),k=k))
+#
+# myclusGapsem <- clusGap(as.matrix(zzsl[,-1]),
+#                      FUN = myclustersem,
+#                      K.max = 350,
+#                      B = 2)
+#
+# plot(myclusGapsem, main = "Gap Statistic")+
+# abline(v=348, col = "red")
+#
+# semclustnum = with(myclusGapsem, maxSE(Tab[,"gap"], Tab[,"SE.sim"], method="globalSEmax")) # 348
+#
 ```
+
 
 
 
@@ -94,6 +110,14 @@ colnames(clusterstxt)[1] <- "cluster"
 colnames(clusterstxt)[2] <- "gene"
 
 head(clusterstxt)
+
+dendtxt <- as.dendrogram(hclusttxt)
+# k= no of clusters, h= height of cut
+dendtxt <- color_branches(dendtxt, h=0.1)
+plot(dendtxt)
+
+
+
 
 ```
 
@@ -174,8 +198,12 @@ head(clusters)
 # auto
 ```{r}
 # score matriz - for each h gene, ranking of ortholog and whether ortholog in cluster of highest rank
-score = matrix(0, nrow = 647, ncol=5, dimnames = list(hgenes[-1],c("gene", "rankingSem","captureSem", "rankingTxt","captureTxt")))
+score = matrix(0, nrow = 647, ncol=7, dimnames = list(hgenes[-1],c("gene", "rankingSem","captureSem.1","captureSemOpt", "rankingTxt","captureTxt.1", "captureTxtOpt")))
 score[,1]= hgenes[-1]
+
+scoreorth = matrix(0, nrow = 647, ncol=3, dimnames = list(hgenes[-1],c("gene", "sem","txt")))
+scoreorth[,1]= hgenes[-1]
+
 
 # for each zgene sem
 for (htarget in hgenes[-1]) {
@@ -188,6 +216,7 @@ for (htarget in hgenes[-1]) {
   zmatches = orths[(which(orths == htarget)[1]),-1]
   #target = str_replace(target, "_",":")
   
+  scoreorth[htarget,2] = tops[1,T]
   
   # for the top 8
   for(znum in 1:731) {
@@ -255,20 +284,20 @@ for (htarget in hgenes[-1]) {
   # if ortholog of top score is the same as ortholog of source gene, correctly identified match
   if (currscore == htarget){
     #print(target)
-    score[htarget,4] = znum
+    score[htarget,5] = znum
   }
   
 
-  if (score[htarget,5] == 0){
+  if (score[htarget,6] == 0){
     #print(znum)
     # identify cluster of top ranking gene
-    clustnum = clusters[which(clusters == zname, arr.ind = TRUE)[1],1]
+    clustnum = clusterstxt[which(clusterstxt == zname, arr.ind = TRUE)[1],1]
     # list all genes in that cluster
-    subset = filter(clusters, cluster == clustnum)
+    subset = filter(clusterstxt, cluster == clustnum)
     # if cluster of top ranking gene includes the source gene, correctly captured
     for(poss in subset[,2]){
       if(poss %in% zmatches)
-        score[htarget,5] = znum
+        score[htarget,6] = znum
 
     }
   }
@@ -281,24 +310,140 @@ S = data.frame(score)
 
 ```
 
+# opt cluster
+```{r}
+cuttxtopt <- cutree(hclusttxt, k= 314)
+clustertxtopt = as.data.frame(as.matrix(cuttxtopt))
+clustertxtopt$gene = zgenes
+colnames(clustertxtopt)[1] <- "cluster"
+colnames(clustertxtopt)[2] <- "gene"
+
+cutsemopt <- cutree(hclustsem, k= 348)
+clustersemopt = as.data.frame(as.matrix(cutsemopt))
+clustersemopt$gene = zgenes
+colnames(clustersemopt)[1] <- "cluster"
+colnames(clustersemopt)[2] <- "gene"
+
+
+```
+
+```{r}
+for (htarget in hgenes[-1]) {
+  ###### change to h2z #############
+  
+  # seperate out 8 smallest scores and name of associated gene
+  b = hztl %>%
+  select(T = htarget,  zfgene)
+  tops = arrange(b, T)
+  zmatches = orths[(which(orths == htarget)[1]),-1]
+  #target = str_replace(target, "_",":")
+  
+  
+  
+  # for the top 8
+  for(znum in 1:731) {
+    
+  # j is the gene in top 8
+  zname = tops[[znum,2]]
+  zname = str_replace(zname, "_",":")
+  #print(j)
+
+  if (score[htarget,7] == 0){
+    #print(znum)
+    # identify cluster of top ranking gene
+    clustnum = clustertxtopt[which(clustertxtopt == zname, arr.ind = TRUE)[1],1]
+    # list all genes in that cluster
+    subset = filter(clustertxtopt, cluster == clustnum)
+    # if cluster of top ranking gene includes the source gene, correctly captured
+    for(poss in subset[,2]){
+      if(poss %in% zmatches)
+        score[htarget,7] = znum
+
+    }
+  }
+  
+  
+  }
+  
+  # seperate out 8 smallest scores and name of associated gene
+  b = hzsl %>%
+  select(T = htarget,  zfgene)
+  tops = arrange(b, T)
+  zmatches = orths[(which(orths == htarget)[1]),-1]
+  #target = str_replace(target, "_",":")
+  
+  
+  # for the top 8
+  for(znum in 1:731) {
+    
+  # j is the gene in top 8
+  zname = tops[[znum,2]]
+  zname = str_replace(zname, "_",":")
+  #print(j)
+
+  if (score[htarget,4] == 0){
+    #print(znum)
+    # identify cluster of top ranking gene
+    clustnum = clustersemopt[which(clustersemopt == zname, arr.ind = TRUE)[1],1]
+    # list all genes in that cluster
+    subset = filter(clustersemopt, cluster == clustnum)
+    # if cluster of top ranking gene includes the source gene, correctly captured
+    for(poss in subset[,2]){
+      if(poss %in% zmatches)
+        score[htarget,4] = znum
+
+    }
+  }
+  
+  
+  }
+  
+  
+  
+}
+```
+
+
 #summarize
 
 ```{r}
 S %>% group_by(rankingSem) %>% summarise(ct = n())
 
 ggplot(S, aes(x=rankingSem))+
-  geom_histogram(stat = "count", binwidth = 100)
+  geom_bar(stat="count")
   #scale_x_discrete(limits=c("0","50","100","150","200","250","300","350","400","450","500","550","600"))
 
 S %>% group_by(captureSem) %>% summarise(ct = n())
 
 ggplot(S, aes(x=captureSem))+
-  geom_histogram(stat = "count")
+  geom_histogram(stat = "count", binwidth = 1)
 
 S %>% group_by(rankingTxt) %>% summarise(ct = n())
 S %>% group_by(captureTxt) %>% summarise(ct = n())
 
 #ggplot(S, aes(x=cluster))+
  # geom_histogram(stat = "count")
+```
+
+```{r}
+S$rankingSem = as.numeric(S$rankingSem)
+S$captureSem = as.numeric(S$captureSem)
+S$rankingTxt = as.numeric(S$rankingTxt)
+S$captureTxt = as.numeric(S$captureTxt)
+
+
+hist(S$rankingSem)
+hist(S$captureSem)
+hist(S$rankingTxt)
+hist(S$captureTxt)
+```
+
+
+
+# orth aves
+```{r}
+for(i in S$rankingSem){
+  
+}
 ```
 

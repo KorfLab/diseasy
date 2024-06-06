@@ -48,7 +48,7 @@ set.seed(125)
 
 mycluster <- function(x, k) list(cluster=cutree(hclust(zztl, method = "average"),k=k))
 
-myclusGap <- clusGap(try,
+myclusGap <- clusGap(z2ztxtlines[,-1],
                      FUN = mycluster, 
                      K.max = 300, 
                      B = 10)
@@ -58,11 +58,11 @@ plot(myclusGap, main = "Gap Statistic")
 with(myclusGap, maxSE(Tab[,"gap"], Tab[,"SE.sim"], method="globalSEmax")) # 281
 
 # not work
-myclusGap2 <- clusGap(try,
+myclusGap2 <- clusGap(z2ztxtlines[,-1],
                      FUN = mycluster, 
                      K.max = 600, 
-                     B = 1)
+                     B = 2)
 
 plot(myclusGap2, main = "Gap Statistic")
 
-with(myclusGap2, maxSE(Tab[,"gap"], Tab[,"SE.sim"], method="firstSEmax"))
+with(myclusGap2, maxSE(Tab[,"gap"], Tab[,"SE.sim"], method="Tibs2001SEmax"))
