@@ -57,35 +57,35 @@ zgeneshz <- str_replace_all(zgeneshz, "_",":")
 
 # cluster analysis z2z
 ```{r}
-# library(cluster)
-# set.seed(125)
-#
-# myclustertxt <- function(x, k) list(cluster=cutree(hclust(datatxt, method = "average"),k=k))
-#
-# myclusGaptxt <- clusGap(as.matrix(zztl[,-1]),
-#                      FUN = myclustertxt,
-#                      K.max = 350,
-#                      B = 2)
-#
-# plot(myclusGaptxt, main = "Gap Statistic")+
-# abline(v=314, col = "red")
-#
-# txtclustnum = with(myclusGaptxt, maxSE(Tab[,"gap"], Tab[,"SE.sim"], method="globalSEmax")) # 314
-#
-#
-#
-# myclustersem <- function(x, k) list(cluster=cutree(hclust(data, method = "average"),k=k))
-#
-# myclusGapsem <- clusGap(as.matrix(zzsl[,-1]),
-#                      FUN = myclustersem,
-#                      K.max = 350,
-#                      B = 2)
-#
-# plot(myclusGapsem, main = "Gap Statistic")+
-# abline(v=348, col = "red")
-#
-# semclustnum = with(myclusGapsem, maxSE(Tab[,"gap"], Tab[,"SE.sim"], method="globalSEmax")) # 348
-#
+library(cluster)
+set.seed(125)
+
+myclustertxt <- function(x, k) list(cluster=cutree(hclust(datatxt, method = "average"),k=k))
+
+myclusGaptxt <- clusGap(as.matrix(zztl[,-1]),
+                     FUN = myclustertxt,
+                     K.max = 350,
+                     B = 2)
+
+plot(myclusGaptxt, main = "Gap Statistic Text Comparison")+
+abline(v=314, col = "red")
+
+txtclustnum = with(myclusGaptxt, maxSE(Tab[,"gap"], Tab[,"SE.sim"], method="globalSEmax")) # 314
+
+
+
+myclustersem <- function(x, k) list(cluster=cutree(hclust(data, method = "average"),k=k))
+
+myclusGapsem <- clusGap(as.matrix(zzsl[,-1]),
+                     FUN = myclustersem,
+                     K.max = 350,
+                     B = 2)
+
+plot(myclusGapsem, main = "Gap Statistic Semantic Comparison")+
+abline(v=348, col = "red")
+
+semclustnum = with(myclusGapsem, maxSE(Tab[,"gap"], Tab[,"SE.sim"], method="globalSEmax")) # 348
+
 ```
 
 
@@ -115,6 +115,7 @@ dendtxt <- as.dendrogram(hclusttxt)
 # k= no of clusters, h= height of cut
 dendtxt <- color_branches(dendtxt, h=0.1)
 plot(dendtxt)
+plot(dendtxt, ylab = "Semantic similarity score", main = "Dendogram of Zebrafish to Zebrafish Text Comparison Scores")
 
 
 
@@ -129,7 +130,7 @@ hclust <- hclust(data, method = 'average')
 dend <- as.dendrogram(hclust)
 # k= no of clusters, h= height of cut
 dend <- color_branches(dend, h=0.1)
-plot(dend)
+plot(dend, ylab = "Semantic similarity score", main = "Dendogram of Zebrafish to Zebrafish Semantic Scores")
 
 ```
 # cuts 0.1
@@ -323,7 +324,7 @@ clustertxtopt$gene = zgenes
 colnames(clustertxtopt)[1] <- "cluster"
 colnames(clustertxtopt)[2] <- "gene"
 
-cutsemopt <- cutree(hclustsem, k= 348)
+cutsemopt <- cutree(hclust, k= 348)
 clustersemopt = as.data.frame(as.matrix(cutsemopt))
 clustersemopt$gene = zgenes
 colnames(clustersemopt)[1] <- "cluster"
@@ -431,16 +432,23 @@ S %>% group_by(captureTxt) %>% summarise(ct = n())
 ```
 
 ```{r}
+S = data.frame(score)
+
 S$rankingSem = as.numeric(S$rankingSem)
 S$captureSem = as.numeric(S$captureSem)
 S$rankingTxt = as.numeric(S$rankingTxt)
 S$captureTxt = as.numeric(S$captureTxt)
 
+S$captureSemOpt = as.numeric(S$captureSemOpt)
+S$captureTxtOpt = as.numeric(S$captureTxtOpt)
 
 hist(S$rankingSem)
 hist(S$captureSem)
 hist(S$rankingTxt)
 hist(S$captureTxt)
+
+hist(S$captureSemOpt)
+hist(S$captureTxtOpt)
 ```
 
 
