@@ -77,7 +77,8 @@ ggplot(aveScores2, aes(x= comp, y=mn, fill=comp))+
 ggplot(fin, aes(x=caporg.rankingSem))+
   geom_histogram(binwidth = 15, fill = "orange", color="black")+
   labs(x="Rank", y="Counts", title = "Distribution of Ortholog Ranking- Semantic Comparison")+
-  geom_vline(xintercept=mean(fin$caporg.rankingSem),size=2, show.legend = TRUE)
+  geom_vline(xintercept=mean(fin$caporg.rankingSem),size=2, show.legend = TRUE)+
+  geom_vline(xintercept=median(fin$caporg.rankingSem),size=2, show.legend = TRUE, color="brown")
 
 ggplot(fin, aes(x=caporg.rankingTxt))+
   geom_histogram(binwidth = 15, fill = "cornflowerblue", color="black")+
@@ -113,14 +114,28 @@ averanks[3,] = c(mean(fin$caporg.rankingSem.1),sd(fin$caporg.rankingSem.1),"Clus
 averanks[4,] = c(mean(fin$caporg.captureTxt),sd(fin$caporg.captureTxt),"Cluster < 0.1","Text")
 averanks[5,] = c(mean(fin$cap2.captureSemOpt),sd(fin$cap2.captureSemOpt),"Optimal Cluster","Semantic")
 averanks[6,] = c(mean(fin$cap2.captureTxtOpt),sd(fin$cap2.captureTxtOpt),"Optimal Cluster","Text")
-colnames(averanks) = c("Mean","Stand.Deviation","Method","Comparison")
+colnames(averanks) = c("Median","Stand.Deviation","Method","Comparison")
 
 averanks = as.data.frame(averanks)
 averanks[,1]=as.numeric(averanks[,1])
 averanks[,2]=as.numeric(averanks[,2])
 
-ggplot(averanks, aes(x= reorder(Method, -Mean), y=Mean, fill=Comparison))+
+ggplot(averanks, aes(x= reorder(Method, -Median), y=Median, fill=Comparison))+
   geom_bar(stat = "identity", position = "dodge")+
-  geom_errorbar(aes(ymin=Mean-Stand.Deviation, ymax=Mean+Stand.Deviation), position = "dodge")+
   scale_fill_brewer(palette="Set3")+
-  labs(x="Method", y="Average Ranking", title = "Average Rank by Clustering Method")
+  labs(x="Method", y="Median Ranking", title = "Median Rank by Clustering Method")
+
+
+tsum.test(mean.x = averanks[1,1], s.x = averanks[1,2], n.x = 731, mean.y = 366, s.y = 277, n.y=731)
+tsum.test(mean.x = averanks[2,1], s.x = averanks[2,2], n.x = 731, mean.y = 366, s.y = 277, n.y=731)
+tsum.test(mean.x = averanks[3,1], s.x = averanks[3,2], n.x = 731, mean.y = 366, s.y = 277, n.y=731)
+tsum.test(mean.x = averanks[4,1], s.x = averanks[4,2], n.x = 731, mean.y = 366, s.y = 277, n.y=731)
+tsum.test(mean.x = averanks[5,1], s.x = averanks[5,2], n.x = 731, mean.y = 366, s.y = 277, n.y=731)
+tsum.test(mean.x = averanks[6,1], s.x = averanks[6,2], n.x = 731, mean.y = 366, s.y = 277, n.y=731)
+
+tsum.test(mean.x = mean(semorthscores), s.x = sd(semorthscores), n.x = 731, mean.y = mean(colMeans(as.data.frame(hzsl[,-1]))), s.y = sd(colMeans(as.data.frame(hzsl[,-1]))), n.y=731)
+tsum.test(mean.x = mean(txtorthscores), s.x = sd(txtorthscores), n.x = 731, mean.y = mean(colMeans(as.data.frame(hztl[,-1]))), s.y = sd(colMeans(as.data.frame(hztl[,-1]))), n.y=731)
+
+
+library(MASS)
+fit <- fitdistr(fin$caporg.rankingSem,"normal")
